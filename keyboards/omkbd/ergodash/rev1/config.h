@@ -34,3 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //3: about 39kbps
 //4: about 26kbps
 //5: about 20kbps
+
+// wiring of each half (changed default F6 to C6 because of ripped off solder pad, need to connect F6 (A1) to C6 (5) on pro micro (bit-c))
+#define MATRIX_ROW_PINS { D4, D7, E6, B4, B5 }
+#define MATRIX_COL_PINS { F4, F5, C6, F7, B1, B3, B2 }
