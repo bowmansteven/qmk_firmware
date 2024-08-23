@@ -192,7 +192,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_LOWER] = LAYOUT(
   //,------------------------------------------------.                    ,---------------------------------------------------.
-  _______,  KC_F1,  KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,
+  _______,  KC_F1,  KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_MS_LEFT,   KC_MS_DOWN,   KC_MS_UP,   KC_MS_RIGHT,  KC_F10,  KC_MS_BTN1,
   //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
   KC_GRV,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,   KC_F12,
   //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
@@ -635,7 +635,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 } */
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
+    if (index == 0) {  // Left encoder (originally right encoder's functionality)
         switch (get_highest_layer(layer_state)) {
             case _LOWER:
                 if (clockwise) {
@@ -652,14 +652,13 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 }
                 break;
         }
-    } else if (index == 1) {
+    } else if (index == 1) {  // Right encoder (originally left encoder's functionality)
         if (clockwise) {
-            tap_code(KC_PGDN);
+            tap_code(KC_PGDN);  // Send only PGDN when turned clockwise
         } else {
-            tap_code(KC_PGUP);
+            tap_code(KC_PGUP);  // Send only PGUP when turned counterclockwise
         }
     }
     return true;
 }
-
 #endif
