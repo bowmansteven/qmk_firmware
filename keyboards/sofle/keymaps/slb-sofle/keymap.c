@@ -86,6 +86,7 @@ enum custom_keycodes {
     KC_D_MUTE,
     PASSWORD,
     GLOBALPROTECT,
+    SF_TEMPTABLE,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -187,14 +188,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |  _   |  =   |  -   |  +   |   {  |   }  |-------|    |-------|   [  |   ]  | LEFT | DOWN |  UP  |RIGHT|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            |      |      |      |      | /       /       \      \  |      |      |      |      |
- *            |      |      |      |      |/       /         \      \ | PRV  |PLY/PS|PLY/PS| NEXT |
+ *            |      |      |      |      |/ GP    /         \      \ | PRV  |PLY/PS|PLY/PS| NEXT |
  *            `----------------------------------'           '------''---------------------------'
  */
 [_LOWER] = LAYOUT(
   //,------------------------------------------------.                    ,---------------------------------------------------.
   _______,  KC_F1,  KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_MS_LEFT,   KC_MS_DOWN,   KC_MS_UP,   KC_MS_RIGHT,  KC_F10,  KC_MS_BTN1,
   //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
-  KC_GRV,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,   KC_F12,
+  KC_GRV,   KC_1,   KC_2,    KC_3,    KC_4,  SF_TEMPTABLE,                 KC_6,    KC_7,    KC_8,    KC_9,    KC_0,   KC_F12,
   //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
   _______,  KC_EXLM,  KC_AT, KC_HASH, KC_DLR, KC_PERC,                    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PIPE,
   //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
@@ -581,7 +582,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             } else {
             // when keycode PASSWORD is released
             }
-            return false;           
+            return false;        
+         case SF_TEMPTABLE:
+            if (record->event.pressed) {
+            // when keycode PASSWORD is pressed
+                SEND_STRING("CREATE OR REPLACE TEMPORARY TABLE  AS" SS_TAP(X_ENT));
+            } else {
+            // when keycode SF_TEMPTABLE is released
+            }
+            return false;     
         case KC_D_MUTE:
             if (record->event.pressed) {
                 register_mods(mod_config(MOD_MEH));
