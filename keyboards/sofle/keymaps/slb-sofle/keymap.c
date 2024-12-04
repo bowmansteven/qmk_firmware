@@ -87,6 +87,8 @@ enum custom_keycodes {
     PASSWORD,
     GLOBALPROTECT,
     SF_TEMPTABLE,
+    SF_TBLEVENT,
+    SF_QUALIFY,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -195,7 +197,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,------------------------------------------------.                    ,---------------------------------------------------.
   _______,  KC_F1,  KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_MS_LEFT,   KC_MS_DOWN,   KC_MS_UP,   KC_MS_RIGHT,  KC_F10,  KC_MS_BTN1,
   //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
-  KC_GRV,   KC_1,   KC_2,    KC_3,    KC_4,  SF_TEMPTABLE,                 KC_6,    KC_7,    KC_8,    KC_9,    KC_0,   KC_F12,
+  KC_GRV,   SF_QUALIFY,   KC_2,    KC_3,    KC_4,  SF_TEMPTABLE,                 KC_6,    KC_7,    KC_8,    KC_9,    SF_TBLEVENT, KC_F12,
   //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
   _______,  KC_EXLM,  KC_AT, KC_HASH, KC_DLR, KC_PERC,                    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PIPE,
   //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
@@ -591,6 +593,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // when keycode SF_TEMPTABLE is released
             }
             return false;     
+         case SF_TBLEVENT:
+            if (record->event.pressed) {
+            // when keycode SF_TBLEVENT is pressed
+                SEND_STRING("SANDBOXMARKETING.MKTG.TBLEVENT_PARSED" SS_TAP(X_ENT));
+            } else {
+            // when keycode SF_TBLEVENT is released
+            }
+            return false;
+         case SF_QUALIFY:
+            if (record->event.pressed) {
+            // when keycode SF_TBLEVENT is pressed
+                SEND_STRING("QUALIFY" SS_TAP(X_ENT) SS_TAP(X_TAB) "ROW_NUMBER() OVER (" SS_TAP(X_ENT) "PARTITION BY" SS_TAP(X_ENT) SS_TAP(X_TAB) "SESSIONID" SS_TAP(X_ENT) SS_TAP(X_BACKSPACE) "ORDER BY" SS_TAP(X_ENT) SS_TAP(X_TAB) "TIMESTAMP_EST" SS_TAP(X_DOWN) SS_TAP(X_SPACE) "= 1;" SS_TAP(X_ENT));
+            } else {
+            // when keycode SF_TBLEVENT is released
+            }
+            return false;   
         case KC_D_MUTE:
             if (record->event.pressed) {
                 register_mods(mod_config(MOD_MEH));
