@@ -572,7 +572,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case PASSWORD:
             if (record->event.pressed) {
             // when keycode PASSWORD is pressed
-                SEND_STRING("CollapseCollapse!14" SS_DELAY(100) SS_TAP(X_ENT));
+                SEND_STRING_DELAY("CollapseCollapse!14" SS_DELAY(100) SS_TAP(X_ENT), 5);
             } else {
             // when keycode PASSWORD is released
             }
@@ -580,7 +580,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
          case GLOBALPROTECT:
             if (record->event.pressed) {
             // when keycode PASSWORD is pressed
-                SEND_STRING("steven.bowman" SS_DELAY(100) SS_TAP(X_TAB) "CollapseCollapse!14" SS_DELAY(100) SS_TAP(X_ENT));
+                SEND_STRING_DELAY("steven.bowman" SS_DELAY(100) SS_TAP(X_TAB) "CollapseCollapse!14" SS_DELAY(100) SS_TAP(X_ENT), 5);
             } else {
             // when keycode PASSWORD is released
             }
@@ -588,7 +588,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
          case SF_TEMPTABLE:
             if (record->event.pressed) {
             // when keycode PASSWORD is pressed
-                SEND_STRING("CREATE OR REPLACE TEMPORARY TABLE  AS" SS_TAP(X_ENT));
+                SEND_STRING_DELAY("CREATE OR REPLACE TEMPORARY TABLE  AS" SS_TAP(X_ENT), 5);
             } else {
             // when keycode SF_TEMPTABLE is released
             }
@@ -596,7 +596,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
          case SF_TBLEVENT:
             if (record->event.pressed) {
             // when keycode SF_TBLEVENT is pressed
-                SEND_STRING("SANDBOXMARKETING.MKTG.TBLEVENT_PARSED" SS_TAP(X_ENT));
+                SEND_STRING_DELAY("SANDBOXMARKETING.MKTG.TBLEVENT_PARSED" SS_TAP(X_ENT), 5);
             } else {
             // when keycode SF_TBLEVENT is released
             }
@@ -604,7 +604,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
          case SF_QUALIFY:
             if (record->event.pressed) {
             // when keycode SF_TBLEVENT is pressed
-                SEND_STRING("QUALIFY" SS_TAP(X_ENT) SS_TAP(X_TAB) "ROW_NUMBER() OVER (" SS_TAP(X_ENT) "PARTITION BY" SS_TAP(X_ENT) SS_TAP(X_TAB) "SESSIONID" SS_TAP(X_ENT) SS_TAP(X_BACKSPACE) "ORDER BY" SS_TAP(X_ENT) SS_TAP(X_TAB) "TIMESTAMP_EST" SS_TAP(X_DOWN) SS_TAP(X_SPACE) "= 1;" SS_TAP(X_ENT));
+                SEND_STRING_DELAY("QUALIFY" SS_TAP(X_ENT) SS_TAP(X_TAB) "ROW_NUMBER() OVER (" SS_TAP(X_ENT) "PARTITION BY" SS_TAP(X_ENT) SS_TAP(X_TAB) "SESSIONID" SS_TAP(X_ENT) SS_TAP(X_BACKSPACE) "ORDER BY" SS_TAP(X_ENT) SS_TAP(X_TAB) "TIMESTAMP_EST" SS_TAP(X_DOWN) SS_TAP(X_SPACE) "= 1;" SS_TAP(X_ENT), 5);
             } else {
             // when keycode SF_TBLEVENT is released
             }
