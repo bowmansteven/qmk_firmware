@@ -572,7 +572,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case PASSWORD:
             if (record->event.pressed) {
             // when keycode PASSWORD is pressed
-                SEND_STRING_DELAY("CollapseCollapse!14" SS_DELAY(100) SS_TAP(X_ENT), 5);
+                SEND_STRING_DELAY("CollapseCollapse!15" SS_DELAY(100) SS_TAP(X_ENT), 5);
             } else {
             // when keycode PASSWORD is released
             }
@@ -580,7 +580,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
          case GLOBALPROTECT:
             if (record->event.pressed) {
             // when keycode PASSWORD is pressed
-                SEND_STRING_DELAY("steven.bowman" SS_DELAY(100) SS_TAP(X_TAB) "CollapseCollapse!14" SS_DELAY(100) SS_TAP(X_ENT), 5);
+                SEND_STRING_DELAY("steven.bowman" SS_DELAY(100) SS_TAP(X_TAB) "CollapseCollapse!15" SS_DELAY(100) SS_TAP(X_ENT), 5);
             } else {
             // when keycode PASSWORD is released
             }
