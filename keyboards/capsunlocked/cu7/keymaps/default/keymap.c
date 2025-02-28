@@ -16,11 +16,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include QMK_KEYBOARD_H
 
+enum custom_keycodes {
+    PASSWORD = SAFE_RANGE,
+    GLOBALPROTECT
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+          case PASSWORD:
+            if (record->event.pressed) {
+            // when keycode PASSWORD is pressed
+                SEND_STRING_DELAY("CollapseCollapse!15" SS_DELAY(100) SS_TAP(X_ENT), 10);
+            } else {
+            // when keycode PASSWORD is released
+            }
+            return false;
+         case GLOBALPROTECT:
+            if (record->event.pressed) {
+            // when keycode PASSWORD is pressed
+                SEND_STRING_DELAY("steven.bowman" SS_DELAY(100) SS_TAP(X_TAB) "CollapseCollapse!15" SS_DELAY(100) SS_TAP(X_ENT), 10);
+            } else {
+            // when keycode PASSWORD is released
+            }
+            return false; 
+    }
+    return true;
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT(
              MO(1),
     KC_1,    KC_2,    KC_3,
-    KC_4,    KC_5,    KC_6
+    PASSWORD, KC_5,    GLOBALPROTECT
   ),
   [1] = LAYOUT(
              _______,
@@ -40,3 +67,4 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
   return true;
 }
+
