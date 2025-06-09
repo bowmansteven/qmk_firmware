@@ -632,15 +632,14 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             } else {
                 tap_code16(LCTL(LALT(KC_LEFT)));
             }
-            return true;
+        } else { // Base layer
+            if (clockwise) {
+                tap_code16(LSFT(LALT(KC_VOLU)));
+            } else {
+                tap_code16(LSFT(LALT(KC_VOLD)));
+            }
         }
-        // Base action
-        if (clockwise) {
-            tap_code16(LSFT(LALT(KC_VOLU)));
-        } else {
-            tap_code16(LSFT(LALT(KC_VOLD)));
-        }
-        return true;
+        return false; // Prevent core/keyboard level encoder actions
     } else if (index == 1) { // Right encoder
         if (IS_LAYER_ON(_LOWER)) {
             if (clockwise) {
@@ -648,15 +647,15 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             } else {
                 tap_code16(LGUI(LSFT(KC_MINS)));
             }
-            return true;
-        }
-        if (clockwise) {
-            tap_code(KC_PGDN);
         } else {
-            tap_code(KC_PGUP);
+            if (clockwise) {
+                tap_code(KC_PGDN);
+            } else {
+                tap_code(KC_PGUP);
+            }
         }
-        return true;
+        return false; // Prevent core/keyboard level encoder actions
     }
-    return false;
+    return false; // Fallback: always prevent lower-level actions
 }
 #endif
