@@ -623,69 +623,40 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef ENCODER_ENABLE
 
-/* bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_VOLD);
-        } else {
-            tap_code(KC_VOLU);
-        }
-		} else if (index == 1) {
-			switch (get_highest_layer(layer_state)) {
-				case _COLEMAK:
-				case _QWERTY:
-				case _COLEMAKDH:
-					if (clockwise) {
-						tap_code(KC_PGDN);
-					} else {
-						tap_code(KC_PGUP);
-					}
-				break;
-			case _RAISE:
-			case _LOWER:
-					if (clockwise) {
-						tap_code(KC_DOWN);
-					} else {
-						tap_code(KC_UP);
-					}
-				break;
-			default:
-					if (clockwise) {
-						tap_code(KC_WH_D);
-					} else {
-						tap_code(KC_WH_U);
-					}
-				break;
-		}
-    }
-    return true;
-} */
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {  // Left encoder (originally right encoder's functionality)
-        switch (get_highest_layer(layer_state)) {
-            case _LOWER:
-                if (clockwise) {
-                    tap_code16(LCTL(LALT(KC_LEFT)));
-                } else {
-                    tap_code16(LCTL(LALT(KC_RIGHT)));
-                }
-                break;
-            default:
-                if (clockwise) {
-                    tap_code16(LSFT(LALT(KC_VOLU)));
-                } else {
-                    tap_code16(LSFT(LALT(KC_VOLD)));
-                }
-                break;
+    if (index == 0) { // Left encoder
+        if (IS_LAYER_ON(_LOWER)) {
+            if (clockwise) {
+                tap_code16(LCTL(LALT(KC_RIGHT)));
+            } else {
+                tap_code16(LCTL(LALT(KC_LEFT)));
+            }
+            return true;
         }
-    } else if (index == 1) {  // Right encoder (originally left encoder's functionality)
+        // Base action
         if (clockwise) {
-            tap_code(KC_PGDN);  // Send only PGDN when turned clockwise
+            tap_code16(LSFT(LALT(KC_VOLU)));
         } else {
-            tap_code(KC_PGUP);  // Send only PGUP when turned counterclockwise
+            tap_code16(LSFT(LALT(KC_VOLD)));
         }
+        return true;
+    } else if (index == 1) { // Right encoder
+        if (IS_LAYER_ON(_LOWER)) {
+            if (clockwise) {
+                tap_code16(LGUI(LSFT(KC_PLUS)));
+            } else {
+                tap_code16(LGUI(LSFT(KC_MINS)));
+            }
+            return true;
+        }
+        if (clockwise) {
+            tap_code(KC_PGDN);
+        } else {
+            tap_code(KC_PGUP);
+        }
+        return true;
     }
-    return true;
+    return false;
 }
 #endif
