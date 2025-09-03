@@ -21,8 +21,10 @@
 
 #define INDICATOR_BRIGHTNESS 30
 #define KC_THINGS LCTL(KC_SPC)
+#define FORMAT_JSON LGUI(LALT(LSFT(KC_J)))
+#define FORMAT_XML LGUI(LALT(LSFT(KC_L)))
 #define HSV_OVERRIDE_HELP(h, s, v, Override) h, s , Override
-#define HSV_OVERRIDE(hsv, Override) HSV_OVERRIDE_HELP(hsv,Override)
+#define HSV_OVERRIDE(hsv, Override) HSV_OVERRIDE_HELP(hsv, Override)
 
 
 // Light combinations
@@ -199,14 +201,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
   KC_GRV,   SF_QUALIFY,   KC_2,    KC_3,    KC_4,  SF_TEMPTABLE,                 KC_6,    KC_7,    KC_8,    KC_9,    SF_TBLEVENT, KC_F12,
   //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
-  _______,  KC_EXLM,  KC_AT, KC_HASH, KC_DLR, KC_PERC,                    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PIPE,
+  _______,  KC_EXLM,  KC_AT, KC_HASH, KC_DLR, KC_PERC,                    KC_CIRC, FORMAT_JSON, KC_ASTR, FORMAT_XML, KC_RPRN, KC_PIPE,
   //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
   KC_EQL,LSFT(KC_MINS),  KC_MINS,KC_PLUS, KC_LCBR, KC_RCBR,_______,    KC_THINGS,KC_LBRC, KC_RBRC, KC_LEFT,KC_DOWN, KC_UP,   KC_RGHT,
   //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
                  _______, _______, _______, _______, GLOBALPROTECT,     _______, KC_MPRV, KC_MPLY ,KC_MPLY, KC_MNXT
   //            \--------+--------+--------+---------+-------|   |--------+---------+--------+---------+-------/
 ),
-/* RAISE
+/* RAISE 
  * ,----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
@@ -577,7 +579,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // when keycode PASSWORD is released
             }
             return false;
-         case GLOBALPROTECT:
+        case GLOBALPROTECT:
             if (record->event.pressed) {
             // when keycode PASSWORD is pressed
                 SEND_STRING_DELAY("steven.bowman" SS_DELAY(100) SS_TAP(X_TAB) "CollapseCollapse!17" SS_DELAY(100) SS_TAP(X_ENT), 10);
@@ -585,15 +587,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // when keycode PASSWORD is released
             }
             return false;        
-         case SF_TEMPTABLE:
+        case SF_TEMPTABLE:
             if (record->event.pressed) {
             // when keycode PASSWORD is pressed
-                SEND_STRING_DELAY("CREATE OR REPLACE TEMPORARY TABLE  AS" SS_TAP(X_ENT), 10);
+                SEND_STRING_DELAY("CREATE OR REPLACE TEMPORARY TABLE AS" SS_TAP(X_ENT), 10);
             } else {
             // when keycode SF_TEMPTABLE is released
             }
             return false;     
-         case SF_TBLEVENT:
+        case SF_TBLEVENT:
             if (record->event.pressed) {
             // when keycode SF_TBLEVENT is pressed
                 SEND_STRING_DELAY("SANDBOXMARKETING.MKTG.TBLEVENT_PARSED" SS_TAP(X_ENT), 10);
@@ -601,7 +603,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // when keycode SF_TBLEVENT is released
             }
             return false;
-         case SF_QUALIFY:
+        case SF_QUALIFY:
             if (record->event.pressed) {
             // when keycode SF_TBLEVENT is pressed
                 SEND_STRING_DELAY("QUALIFY" SS_TAP(X_ENT) SS_TAP(X_TAB) "ROW_NUMBER() OVER (" SS_TAP(X_ENT) "PARTITION BY" SS_TAP(X_ENT) SS_TAP(X_TAB) "SESSIONID" SS_TAP(X_ENT) SS_TAP(X_BACKSPACE) "ORDER BY" SS_TAP(X_ENT) SS_TAP(X_TAB) "TIMESTAMP_EST" SS_TAP(X_DOWN) SS_TAP(X_SPACE) "= 1;" SS_TAP(X_ENT), 10);
