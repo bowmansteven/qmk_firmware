@@ -5,12 +5,8 @@
     "usb": {
         "vid": "0x4B44",
         "pid": "0x3935",
-        "device_version": "0.0.2"
-    },
-    "host": {
-        "default": {
-            "nkro": true
-        }
+        "device_version": "0.0.2",
+        "force_nkro": true
     },
     "rgblight": {
         "led_count": 24,

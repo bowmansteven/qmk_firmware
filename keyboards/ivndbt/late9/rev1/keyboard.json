@@ -24,7 +24,8 @@
       "nkro": true,
       "oled": true
     },
-    "development_board": "promicro",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

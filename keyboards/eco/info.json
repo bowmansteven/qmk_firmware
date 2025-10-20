@@ -6,7 +6,8 @@
     "vid": "0x1337",
     "pid": "0x6006"
   },
-  "development_board": "promicro",
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
   "qmk": {
     "locking": {
       "enabled": true,

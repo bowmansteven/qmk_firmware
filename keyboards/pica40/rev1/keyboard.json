@@ -1,5 +1,6 @@
 {
-    "development_board": "promicro",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "diode_direction": "COL2ROW",
     "matrix_pins": {
         "cols": ["D2", "B5", "B4", "E6", "D7"],

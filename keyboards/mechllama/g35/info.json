@@ -13,12 +13,8 @@
     },
     "usb": {
         "vid": "0xCEEB",
-        "pid": "0x0035"
-    },
-    "host": {
-        "default": {
-            "nkro": true
-        }
+        "pid": "0x0035",
+        "force_nkro": true
     },
     "ws2812": {
         "pin": "F7"

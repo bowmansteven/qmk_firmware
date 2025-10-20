@@ -28,7 +28,8 @@
             {"pin_a": "D4", "pin_b": "C6"}
         ]
     },
-    "development_board": "promicro",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "tapping": {
         "toggle": 2
     },

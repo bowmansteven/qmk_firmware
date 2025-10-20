@@ -1,6 +1,6 @@
 # Battery Driver
 
-This driver provides support for directly sampling battery level.
+This driver provides support for sampling battery level.
 
 ## Usage
 
@@ -10,17 +10,21 @@ To use this driver, add the following to your `rules.mk`:
 BATTERY_DRIVER_REQUIRED = yes
 ```
 
-::::info Note
-This is already configured for you if you are using the [Battery](../features/battery) feature.
-::::
+## Basic Configuration {#basic-configuration}
+
+Add the following to your `config.h`:
+
+|Define                    |Default |Description                                       |
+|--------------------------|--------|--------------------------------------------------|
+|`BATTERY_SAMPLE_INTERVAL` |`30000` |The time between battery samples in milliseconds. |
 
 ## Driver Configuration {#driver-configuration}
 
-Driver selection can be configured in `rules.mk` as `BATTERY_DRIVER`. Valid values are `adc`, `vendor`, or `custom`. See below for information on individual drivers.
+Driver selection can be configured in `rules.mk` as `BATTERY_DRIVER`. Valid values are `adc` (default), `vendor`, or `custom`. See below for information on individual drivers.
 
 ### ADC Driver {#adc-driver}
 
-The default configuration assumes the battery is connected to a ADC capable pin through a voltage divider.
+This is the default battery driver. The default configuration assumes the battery is connected to a ADC capable pin through a voltage divider.
 
 ```make
 BATTERY_DRIVER = adc
@@ -28,25 +32,42 @@ BATTERY_DRIVER = adc
 
 The following `#define`s apply only to the `adc` driver:
 
-|Define                           |Default       |Description                                                   |
-|---------------------------------|--------------|--------------------------------------------------------------|
-|`BATTERY_ADC_PIN`                |*Not defined* |The GPIO pin connected to the voltage divider.                |
-|`BATTERY_ADC_REF_VOLTAGE_MV`     |`3300`        |The ADC reverence voltage, in millivolts.                     |
-|`BATTERY_ADC_VOLTAGE_DIVIDER_R1` |`100`         |The voltage divider resistance, in kOhm. Set to 0 to disable. |
-|`BATTERY_ADC_VOLTAGE_DIVIDER_R2` |`100`         |The voltage divider resistance, in kOhm. Set to 0 to disable. |
-|`BATTERY_ADC_RESOLUTION`         |`10`          |The ADC resolution configured for the ADC Driver.             |
+|Define                       |Default       |Description                                                   |
+|-----------------------------|--------------|--------------------------------------------------------------|
+|`BATTERY_PIN`                |*Not defined* |The GPIO pin connected to the voltage divider.                |
+|`BATTERY_REF_VOLTAGE_MV`     |`3300`        |The ADC reverence voltage, in millivolts.                     |
+|`BATTERY_VOLTAGE_DIVIDER_R1` |`100`         |The voltage divider resistance, in kOhm. Set to 0 to disable. |
+|`BATTERY_VOLTAGE_DIVIDER_R2` |`100`         |The voltage divider resistance, in kOhm. Set to 0 to disable. |
+|`BATTERY_ADC_RESOLUTION`     |`10`          |The ADC resolution configured for the ADC Driver.             |
 
-### Custom Driver {#custom-driver}
+## Functions
 
-A custom driver is expected to implement the following interface:
+### `uint8_t battery_get_percent(void)` {#api-battery-get-percent}
 
-```c
-void battery_driver_init(void) {
-    // Perform any initialisation here
-}
+Sample battery level.
 
-uint8_t battery_driver_sample_percent(void) {
-    // Read and return current state here
-    return value;
-}
-```
+#### Return Value {#api-battery-get-percent-return}
+
+The battery percentage, in the range 0-100.
+
+## Callbacks
+
+### `void battery_percent_changed_user(uint8_t level)` {#api-battery-percent-changed-user}
+
+User hook called when battery level changed.
+
+### Arguments {#api-battery-percent-changed-user-arguments}
+
+ - `uint8_t level`  
+   The battery percentage, in the range 0-100.
+
+---
+
+### `void battery_percent_changed_kb(uint8_t level)` {#api-battery-percent-changed-kb}
+
+Keyboard hook called when battery level changed.
+
+### Arguments {#api-battery-percent-changed-kb-arguments}
+
+ - `uint8_t level`  
+   The battery percentage, in the range 0-100.

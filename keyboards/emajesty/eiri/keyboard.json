@@ -19,7 +19,8 @@
         "rows": ["B4", "B5", "B2", "B6"]
     },
     "diode_direction": "COL2ROW",
-    "development_board": "promicro",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

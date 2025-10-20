@@ -27,8 +27,7 @@
         },
         "serial": {
             "driver": "usart",
-            "pin": "B6",
-            "speed": 0
+            "pin": "B6"
         },
         "bootmagic": {
             "matrix": [4, 0]

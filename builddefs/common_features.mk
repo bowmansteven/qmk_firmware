@@ -29,8 +29,6 @@ QUANTUM_SRC += \
     $(QUANTUM_DIR)/logging/debug.c \
     $(QUANTUM_DIR)/logging/sendchar.c \
     $(QUANTUM_DIR)/process_keycode/process_default_layer.c \
-    $(QUANTUM_DIR)/process_keycode/process_oneshot.c \
-    $(QUANTUM_DIR)/process_keycode/process_quantum.c \
 
 include $(QUANTUM_DIR)/nvm/rules.mk
 
@@ -635,9 +633,6 @@ ifeq ($(strip $(VIA_ENABLE)), yes)
     RAW_ENABLE := yes
     BOOTMAGIC_ENABLE := yes
     TRI_LAYER_ENABLE := yes
-    ifeq ($(strip $(VIA_INSECURE)), yes)
-        OPT_DEFS += -DVIA_INSECURE
-    endif
 endif
 
 ifeq ($(strip $(RAW_ENABLE)), yes)
@@ -945,25 +940,21 @@ ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)
     endif
 endif
 
-ifeq ($(strip $(BATTERY_ENABLE)), yes)
-    BATTERY_DRIVER_REQUIRED := yes
-endif
-
 VALID_BATTERY_DRIVER_TYPES := adc custom vendor
 
-BATTERY_DRIVER ?= none
+BATTERY_DRIVER ?= adc
 ifeq ($(strip $(BATTERY_DRIVER_REQUIRED)), yes)
     ifeq ($(filter $(BATTERY_DRIVER),$(VALID_BATTERY_DRIVER_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid BATTERY_DRIVER,BATTERY_DRIVER="$(BATTERY_DRIVER)" is not a valid battery driver)
     endif
 
-    OPT_DEFS += -DBATTERY_DRIVER_$(strip $(shell echo $(BATTERY_DRIVER) | tr '[:lower:]' '[:upper:]'))
+    OPT_DEFS += -DBATTERY_DRIVER
+    OPT_DEFS += -DBATTERY_$(strip $(shell echo $(BATTERY_DRIVER) | tr '[:lower:]' '[:upper:]'))
 
     COMMON_VPATH += $(DRIVER_PATH)/battery
 
-    ifneq ($(strip $(BATTERY_DRIVER)), custom)
-        SRC += battery_$(strip $(BATTERY_DRIVER)).c
-    endif
+    SRC += battery.c
+    SRC += battery_$(strip $(BATTERY_DRIVER)).c
 
     # add extra deps
     ifeq ($(strip $(BATTERY_DRIVER)), adc)

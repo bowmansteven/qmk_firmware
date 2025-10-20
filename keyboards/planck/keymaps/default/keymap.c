@@ -258,13 +258,13 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
   } else {
     if (clockwise) {
       #ifdef MOUSEKEY_ENABLE
-        tap_code(MS_WHLD);
+        tap_code(KC_MS_WH_DOWN);
       #else
         tap_code(KC_PGDN);
       #endif
     } else {
       #ifdef MOUSEKEY_ENABLE
-        tap_code(MS_WHLU);
+        tap_code(KC_MS_WH_UP);
       #else
         tap_code(KC_PGUP);
       #endif
