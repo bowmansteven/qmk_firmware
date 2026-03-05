@@ -22,7 +22,7 @@
 #define KC_THINGS (LCTL(KC_SPC))
 #define FORMAT_JSON (LGUI(LALT(LSFT(KC_J))))
 #define FORMAT_XML (LGUI(LALT(LSFT(KC_L))))
-#define SEND_SF_QUERY (LGUI(KC_ENT))
+#define DICTATE (LGUI(LSFT(KC_9)))
 #define HSV_OVERRIDE_HELP(h, s, v, Override) h, s , Override
 #define HSV_OVERRIDE(hsv, Override) HSV_OVERRIDE_HELP(hsv, Override)
 
