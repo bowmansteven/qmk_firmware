@@ -3,6 +3,7 @@
 #undef ENCODER_RESOLUTION
 #endif
 #define ENCODER_RESOLUTION 4
+#define RGBLIGHT_LAYERS
 
 
 /* The way how "handedness" is decided (which half is which),
